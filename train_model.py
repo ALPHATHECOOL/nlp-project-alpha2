@@ -50,13 +50,13 @@ def tokenize_function(data):
 tokenized_train = tokenize_function(train_data)
 tokenized_test = tokenize_function(test_data)
 
-# DataLoader
+
 def collate_fn(batch):
     input_ids = [item['input_ids'] for item in batch]
     attention_mask = [item['attention_mask'] for item in batch]
-    labels = [item['input_ids'] for item in batch]  # Assuming input_ids are used as labels.
+    labels = [item['input_ids'] for item in batch] 
 
-    # Pad sequences to the same length
+    
     padded = tokenizer.pad(
         {'input_ids': input_ids, 'attention_mask': attention_mask, 'labels': labels},
         padding=True,
@@ -66,7 +66,7 @@ def collate_fn(batch):
     return {
         'input_ids': padded['input_ids'].to(device),
         'attention_mask': padded['attention_mask'].to(device),
-        'labels': padded['input_ids'].to(device)  # Ensure labels are padded similarly
+        'labels': padded['input_ids'].to(device) 
     }
 
 def create_dataloader(tokenized_data, batch_size):
